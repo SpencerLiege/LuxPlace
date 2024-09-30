@@ -40,15 +40,26 @@ const Navbar = () => {
                     {/* Logo and nav list */}
                     <section className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
                         <Link href='/' className="flex items-center">
-                            <Image className="h-8 w-8" src={Logo} />
+                            <Image className="h-8 w-8" src={Logo} alt="Logo" />
                             <span className="ml-1 md:block hidden text-2xl font-semibold">LuxPlace</span>
                         </Link>
                         <div className="flex items-center ml-8">
-                            {
-                                navList.map((x)=> (
-                                    <Link className={`${ pathName=== x.link ? 'bg-black' : ''} hidden md:block 2 py-1 px-3 rounded-md`} href={x.link} key={x}>{x.label}</Link>
+                        {
+                            !isLoggedin ? (
+                                navList.filter((a) => (a.link !== '/properties/add')).map((item, index)=> (
+                                    <Link key={index} href={item.link} className={`${pathName === item.link ? 'bg-black' : '' } text-white block rounded-md px-3 py-2 text-base font-medium`}>
+                                       {item.label}
+                                    </Link>
                                 ))
-                            }
+ ) :
+                            (
+                                navList.map((x, index)=> (
+                                    <Link key={index} href={x.link} className={`${pathName === x.link ? 'bg-black' : '' } text-white block rounded-md px-3 py-2 text-base font-medium`}>
+                                       {x.label}
+                                    </Link>
+                                ))
+                            )
+                        }
                         </div>
                     </section>
                     {/* Login, register,and notification */}
@@ -78,15 +89,15 @@ const Navbar = () => {
                     <div className='space-y-1 px-2 pb-3 pt-2 md:hidden'>
                         {
                             !isLoggedin ? (
-                                navList.filter((a) => (a.link !== '/properties/add')).map((item)=> (
-                                    <Link key={item} href={item.link} className={`${pathName === item.link ? 'bg-[#405c98]' : '' } text-white block rounded-md px-3 py-2 text-base font-medium`}>
+                                navList.filter((a) => (a.link !== '/properties/add')).map((item, index)=> (
+                                    <Link key={index} href={item.link} className={`${pathName === item.link ? 'bg-[#405c98]' : '' } text-white block rounded-md px-3 py-2 text-base font-medium`}>
                                        {item.label}
                                     </Link>
                                 ))
  ) :
                             (
-                                navList.map((x)=> (
-                                    <Link key={x} href={x.link} className={`${pathName === x.link ? 'bg-[#405c98]' : '' } text-white block rounded-md px-3 py-2 text-base font-medium`}>
+                                navList.map((x, index)=> (
+                                    <Link key={index} href={x.link} className={`${pathName === x.link ? 'bg-[#405c98]' : '' } text-white block rounded-md px-3 py-2 text-base font-medium`}>
                                        {x.label}
                                     </Link>
                                 ))
